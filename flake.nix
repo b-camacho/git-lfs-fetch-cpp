@@ -9,7 +9,7 @@
     defaultPackage.x86_64-linux = pkgs.stdenv.mkDerivation {
       name = "git-lfs-fetch";
       src = self;
-      buildInputs = [ pkgs.clang pkgs.gnumake pkgs.curl pkgs.nlohmann_json ];
+      buildInputs = [ pkgs.clang pkgs.gnumake pkgs.curl pkgs.nlohmann_json pkgs.libgit2 ];
       buildPhase = ''
         make
       '';

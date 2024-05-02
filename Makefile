@@ -1,8 +1,9 @@
-CXX = g++
-CXXFLAGS = -Iinclude -std=c++20 -Wall -Wextra -O2 -I${NIX_STORE}/nlohmann_json/include
-LDFLAGS = -lcurl
+CXX = $(NIX_CC)/bin/g++
+CXXFLAGS = -Iinclude -std=c++20 -Wall -Wextra -g -O0 $(NIX_CFLAGS_COMPILE)
+LDFLAGS = $(NIX_LDFLAGS_FOR_TARGET) -lcurl -lgit2
 
-SRCS = $(wildcard src/*.cpp)
+
+StRCS = $(wildcard src/*.cpp)
 OBJS = $(SRCS:.cpp=.o)
 TARGET = libgitlfsfetch.a
 
@@ -21,6 +22,7 @@ clean:
 
 test: $(TARGET)
 	$(CXX) $(CXXFLAGS) $(LDFLAGS) -o test/main test/main.cpp $(TARGET)
-	./test/main
 
+format:
+	find . -regex ".*\.\(cpp\|h\)" -exec clang-format -i {} +
 
