@@ -1,9 +1,8 @@
-CXX = $(NIX_CC)/bin/g++
 CXXFLAGS = -Iinclude -std=c++20 -Wall -Wextra -g -O0 $(NIX_CFLAGS_COMPILE)
 LDFLAGS = $(NIX_LDFLAGS_FOR_TARGET) -lcurl -lgit2
 
 
-StRCS = $(wildcard src/*.cpp)
+SRCS = $(wildcard src/*.cpp)
 OBJS = $(SRCS:.cpp=.o)
 TARGET = libgitlfsfetch.a
 
