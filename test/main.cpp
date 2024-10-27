@@ -16,7 +16,7 @@ int main(int argc, char **argv) {
   git_repository *repo = nullptr;
   git_libgit2_init();
 
-  std::cerr << "Open the current directory as a git repository" << std::endl;
+  std::cerr << "Open '" << repo_path << "' as a git repository" << std::endl;
   int error = git_repository_open(&repo, repo_path);
   if (error < 0) {
     const git_error *e = git_error_last();
@@ -28,6 +28,10 @@ int main(int argc, char **argv) {
   auto metadatas = parse_lfs_files(repo);
   for (const auto &[path, oid, size] : metadatas) {
     std::cerr << path << ": " << oid << ", " << size << " bytes" << std::endl;
+  }
+  if (metadatas.empty()) {
+      std::cerr << "Found no lfs files in '" << repo_path << "', nothing to do" << std::endl;
+      return 0;
   }
 
   std::cerr << "Get LFS URL (usually the origin remote url)" << std::endl;
